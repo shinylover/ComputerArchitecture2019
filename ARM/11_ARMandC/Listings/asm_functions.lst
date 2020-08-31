@@ -1,0 +1,175 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             myAsmFunctions, CODE, READONLY
+    2 00000000         
+    3 00000000         concatenateString
+                               PROC
+    4 00000000         ; parameters:
+    5 00000000         ; - pointer to string 1 (r0)
+    6 00000000         ; - number of characters to copy from string 1 (r1)
+    7 00000000         ; - pointer to string 2 (r2)
+    8 00000000         ; - number of characters to copy from string 2 (r3) 
+    9 00000000         ; - pointer to string 3 (first value in the stack)
+   10 00000000         ; - length of string 3 (second value in the stack)
+   11 00000000         ; The subroutine copies string 1 and string 2 into strin
+                       g 3 and returns (in r0) the number of characters copied.
+                       
+   12 00000000                 EXPORT           concatenateString
+   13 00000000         ; save current SP for a faster access to parameters in t
+                       he stack
+   14 00000000 46EC            MOV              r12, sp
+   15 00000002         ; save volatile registers
+   16 00000002 E92D 4DF0       STMFD            sp!,{r4-r8,r10-r11,lr}
+   17 00000006         ; extract argument 4 and 5 into r4 and r5
+   18 00000006 F8DC 4000       LDR              r4, [r12]
+   19 0000000A F8DC 5004       LDR              r5, [r12, #4]
+   20 0000000E F1A5 0501       SUB              r5, r5, #1  ; the last characte
+                                                            r must be the zero 
+                                                            terminator
+   21 00000012         
+   22 00000012 F04F 0600       MOV              r6, #0      ; num of bytes copi
+                                                            ed to string 3
+   23 00000016         
+   24 00000016 F810 7B01 
+                       string1copy
+                               LDRB             r7, [r0], #1 ; load byte and up
+                                                            date address
+   25 0000001A         
+   26 0000001A         ; check if there are still characters to copy from strin
+                       g 1
+   27 0000001A 2F00            CMP              r7, #0      ; check for zero te
+                                                            rminator
+   28 0000001C D007            BEQ              string1End
+   29 0000001E         
+   30 0000001E F804 7B01       STRB             r7, [r4], #1 ; store byte and u
+                                                            pdate address
+   31 00000022 F106 0601       ADD              r6, r6, #1
+   32 00000026         
+   33 00000026         ; check if string 3 is full
+   34 00000026 42AE            CMP              r6, r5
+   35 00000028 D011            BEQ              string2End
+   36 0000002A         
+   37 0000002A         ; check if enough characters are copied from string 1
+   38 0000002A 428E            CMP              r6, r1
+   39 0000002C D3F3            BLO              string1copy ; keep going if not
+                                                            
+   40 0000002E         
+   41 0000002E F04F 0800 
+                       string1End
+                               MOV              r8, #0      ; num of bytes copi
+                                                            ed from string 2
+   42 00000032         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   43 00000032 F812 7B01 
+                       string2copy
+                               LDRB             r7, [r2], #1 ; load byte and up
+                                                            date address
+   44 00000036         
+   45 00000036         ; check if there are still characters to copy from strin
+                       g 2
+   46 00000036 2F00            CMP              r7, #0      ; check for zero te
+                                                            rminator
+   47 00000038 D009            BEQ              string2End
+   48 0000003A         
+   49 0000003A F804 7B01       STRB             r7, [r4], #1 ; store byte and u
+                                                            pdate address
+   50 0000003E F106 0601       ADD              r6, r6, #1
+   51 00000042 F108 0801       ADD              r8, r8, #1
+   52 00000046         
+   53 00000046         ; check if string 3 is full
+   54 00000046 42AE            CMP              r6, r5
+   55 00000048 D001            BEQ              string2End
+   56 0000004A         
+   57 0000004A         ; check if enough characters are copied from string 2
+   58 0000004A 4598            CMP              r8, r3
+   59 0000004C D3F1            BLO              string2copy ; keep going if not
+                                                              
+   60 0000004E         
+   61 0000004E         string2End                           ; insert the zero t
+                                                            erminator
+   62 0000004E F04F 0700       MOV              r7, #0
+   63 00000052 F804 7B01       STRB             r7, [r4], #1 ; store byte and u
+                                                            pdate address
+   64 00000056         
+   65 00000056         ; set the return value
+   66 00000056 4630            MOV              r0, r6
+   67 00000058         
+   68 00000058         ; restore volatile registers
+   69 00000058 E8BD 8DF0       LDMFD            sp!,{r4-r8,r10-r11,pc}
+   70 0000005C         
+   71 0000005C                 ENDP
+   72 0000005C                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\asm_functions.d -o.\objects\asm_functions.o -I.\RTE\Devi
+ce\LPC1768 -I.\RTE\_Target_1 -IC:\Users\Renato\AppData\Local\Arm\Packs\ARM\CMSI
+S\5.5.1\CMSIS\Core\Include -IC:\Users\Renato\AppData\Local\Arm\Packs\Keil\LPC17
+00_DFP\2.6.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_
+VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="LPC175x_6x SETA 1" --
+list=.\listings\asm_functions.lst ASM_functions.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+concatenateString 00000000
+
+Symbol: concatenateString
+   Definitions
+      At line 3 in file ASM_functions.s
+   Uses
+      At line 12 in file ASM_functions.s
+Comment: concatenateString used once
+myAsmFunctions 00000000
+
+Symbol: myAsmFunctions
+   Definitions
+      At line 1 in file ASM_functions.s
+   Uses
+      None
+Comment: myAsmFunctions unused
+string1End 0000002E
+
+Symbol: string1End
+   Definitions
+      At line 41 in file ASM_functions.s
+   Uses
+      At line 28 in file ASM_functions.s
+Comment: string1End used once
+string1copy 00000016
+
+Symbol: string1copy
+   Definitions
+      At line 24 in file ASM_functions.s
+   Uses
+      At line 39 in file ASM_functions.s
+Comment: string1copy used once
+string2End 0000004E
+
+Symbol: string2End
+   Definitions
+      At line 61 in file ASM_functions.s
+   Uses
+      At line 35 in file ASM_functions.s
+      At line 47 in file ASM_functions.s
+      At line 55 in file ASM_functions.s
+
+string2copy 00000032
+
+Symbol: string2copy
+   Definitions
+      At line 43 in file ASM_functions.s
+   Uses
+      At line 59 in file ASM_functions.s
+Comment: string2copy used once
+6 symbols
+340 symbols in table

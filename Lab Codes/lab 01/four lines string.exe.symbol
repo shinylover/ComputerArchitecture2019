@@ -1,0 +1,41 @@
+< THE SYMBOL TABLE >  four lines string.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+FIRST_LINE               	00000     	1         	VAR       	data      
+SECOND_LINE              	00032     	1         	VAR       	data      
+THIRD_LINE               	00064     	1         	VAR       	data      
+FOURTH_LINE              	00096     	1         	VAR       	data      
+FIRST_COUNT              	000C8     	1         	VAR       	data      
+SECOND_COUNT             	00102     	1         	VAR       	data      
+THIRD_COUNT              	0013C     	1         	VAR       	data      
+FOUTH_COUNT              	00176     	1         	VAR       	data      
+FOU_COUNT                	001B0     	1         	VAR       	data      
+DISPLAY                  	001B4     	1         	VAR       	data      
+CODE                     	00033     	-5        	SEGMENT   	(ITSELF)  
+STARTUP                  	00000     	-1        	LABEL     	code      
+READ                     	0000F     	-1        	LABEL     	code      
+CON                      	0001C     	-1        	LABEL     	code      
+CHO                      	00032     	-1        	LABEL     	code      
+FIR                      	00054     	-1        	LABEL     	code      
+SEC                      	0005C     	-1        	LABEL     	code      
+THI                      	0006B     	-1        	LABEL     	code      
+FOU                      	0007B     	-1        	LABEL     	code      
+OUTPUT                   	0008B     	-1        	LABEL     	code      
+CHO2                     	00095     	-1        	LABEL     	code      
+FIR2                     	000A9     	-1        	LABEL     	code      
+SEC2                     	000B8     	-1        	LABEL     	code      
+THI2                     	000C8     	-1        	LABEL     	code      
+FOU2                     	000D8     	-1        	LABEL     	code      
+ORDER                    	000E8     	-1        	LABEL     	code      
+LIST                     	00102     	-1        	LABEL     	code      
+LIST2                    	0010F     	-1        	LABEL     	code      
+DISPL                    	00128     	-1        	LABEL     	code      
+DISP2                    	00130     	-1        	LABEL     	code      
+OVER                     	00150     	-1        	LABEL     	code      
+===================================================================================================
+[ 2020/1/22  --  20:54:44 ] 
+< END >
+ 

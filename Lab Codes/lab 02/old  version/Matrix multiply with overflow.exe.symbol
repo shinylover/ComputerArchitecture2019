@@ -1,0 +1,30 @@
+< THE SYMBOL TABLE >  Matrix multiply with overflow.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+ARR_A                    	00000     	2         	VAR       	data      
+ARR_B                    	00038     	2         	VAR       	data      
+CHECK                    	0007E     	2         	VAR       	data      
+POS_RE                   	00080     	2         	VAR       	data      
+NEG_RE                   	00082     	2         	VAR       	data      
+POINT_I                  	00084     	2         	VAR       	data      
+POINT_J                  	00086     	2         	VAR       	data      
+POINT_I1                 	00088     	2         	VAR       	data      
+POINT_J1                 	0008A     	2         	VAR       	data      
+POINT_ADD_COU            	0008C     	2         	VAR       	data      
+ARR_RES                  	0008E     	2         	VAR       	data      
+CODE                     	0001C     	-5        	SEGMENT   	(ITSELF)  
+STARTUP                  	00000     	-1        	LABEL     	code      
+OUTLOOP                  	0000B     	-1        	LABEL     	code      
+MIDLOOP                  	0000F     	-1        	LABEL     	code      
+INNERLOOP                	0001F     	-1        	LABEL     	code      
+LAB0                     	00037     	-1        	LABEL     	code      
+LAB1                     	0003C     	-1        	LABEL     	code      
+LAB2                     	00042     	-1        	LABEL     	code      
+RETURN                   	00048     	-1        	LABEL     	code      
+===================================================================================================
+[ 2020/1/22  --  18:32:38 ] 
+< END >
+ 

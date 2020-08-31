@@ -1,0 +1,307 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+four lines string.exe -- emu8086 assembler version: 4.08  
+ 
+[ 2020/1/22  --  20:54:44 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ;This program only consider the character A-Z, a-z and Enter button, please input right characters
+[   2]        :                                       
+[   3]        :                                       DIM     EQU     20
+[   4]        :                                       MAX     EQU     50
+[   5]        :                                       GAP     EQU     65      ;The result of ascii 'A' - 0
+[   6]        :                                       
+[   7]        :                                       .MODEL      small
+[   8]        :                                       
+[   9]        :                                       .STACK
+[  10]        :                                       
+[  11]        :                                       .DATA
+[  12]    0100: 00 00 00 00 00 00 00 00 00 00 00 00   first_line  DB 50 DUP(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00                               
+[  13]    0132: 00 00 00 00 00 00 00 00 00 00 00 00   second_line DB 50 DUP(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00                               
+[  14]    0164: 00 00 00 00 00 00 00 00 00 00 00 00   third_line  DB 50 DUP(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00                               
+[  15]    0196: 00 00 00 00 00 00 00 00 00 00 00 00   fourth_line DB 50 DUP(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00                               
+[  16]        :                                       
+[  17]    01C8: 30 30 30 30 30 30 30 30 30 30 30 30   first_count     DB  58  DUP(48)      ;the result of ascii 'a' - 'A' + 1
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30       
+[  18]    0202: 30 30 30 30 30 30 30 30 30 30 30 30   second_count    DB  58  DUP(48)
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30       
+[  19]    023C: 30 30 30 30 30 30 30 30 30 30 30 30   third_count     DB  58  DUP(48)
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30       
+[  20]    0276: 30 30 30 30 30 30 30 30 30 30 30 30   fouth_count     DB  58  DUP(48)
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30       
+[  21]        :                                       
+[  22]    02B0: 00 00 00 00                           fou_count       DB  4   DUP(0)
+[  23]        :                                       
+[  24]    02B4: 30 30 30 30 30 30 30 30 30 30 30 30   display         DB  116 DUP(48)      ; Two dimensions, one is ASCII, one is occurrence times
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30 30 30 30 30 
+                30 30 30 30 30 30 30 30             
+[  25]        :                                       
+[  26]        :                                       .CODE
+[  27]        :                                       
+[  28]    0330: BA 10 00 8E DA                        .STARTUP
+[  29]        :                                       
+[  30]        :                                       ;-----------------------------------------------INPUT-------------------------------------------
+[  31]        :                                       
+[  32]    0335: 32 F6                                 XOR DH, DH           ; as a characters counter
+[  33]    0337: 32 D2                                 XOR DL, DL           ; AS a strings counter
+[  34]    0339: B4 01                                 MOV AH, 1
+[  35]    033B: 33 C9                                 XOR CX, CX
+[  36]    033D: EB 23                                 JMP cho
+[  37]        :                                       
+[  38]    033F: CD 21                                 read:   INT 21H
+[  39]    0341: 3C 0D                                 CMP AL, 13
+[  40]    0343: 75 07                                 JNE con             ; not equal enter button, continue
+[  41]    0345: 80 FE 14                              CMP DH, DIM
+[  42]    0348: 72 F5                                 JB  read            ;bellow 20, read a new value from keyborad buffer
+[  43]    034A: EB 16                                 JMP cho
+[  44]        :                                       
+[  45]    034C: 88 05                                 con:    MOV [DI], AL        ; Store the keyboard buffer into memory
+[  46]    034E: 41                                    INC CX
+[  47]    034F: FE C6                                 INC DH
+[  48]    0351: 8B DE                                 MOV BX, SI
+[  49]    0353: 03 35                                 ADD SI, [DI]
+[  50]    0355: 83 EE 41                              SUB SI, GAP
+[  51]    0358: FE 04                                 INC [SI]            ; conter the charter
+[  52]    035A: 8B F3                                 MOV SI, BX
+[  53]    035C: 47                                    INC DI
+[  54]    035D: 80 FE 32                              CMP DH, MAX
+[  55]    0360: 72 DD                                 JB  read
+[  56]        :                                       ;int20:  CMP DH, DIM
+[  57]        :                                       
+[  58]    0362: FE C2                                 cho:    INC DL              ; choose a string_line to read the keyboard buffer
+[  59]    0364: 32 F6                                 XOR DH, DH
+[  60]    0366: 80 FA 01                              CMP DL,1
+[  61]    0369: 74 19                                 JE  fir
+[  62]    036B: 80 FA 02                              CMP DL, 2
+[  63]    036E: 74 1C                                 JE  sec
+[  64]    0370: 80 FA 03                              CMP DL, 3
+[  65]    0373: 74 26                                 JE  thi
+[  66]    0375: 80 FA 04                              CMP DL, 4
+[  67]    0378: 74 31                                 JE  fou
+[  68]    037A: BE B0 01                              LEA SI, fou_count
+[  69]    037D: 89 4C 03                              MOV [SI+3], CX
+[  70]    0380: 33 C9                                 XOR CX, CX
+[  71]    0382: EB 37                                 JMP output
+[  72]        :                                       
+[  73]    0384: BF 00 00                              fir:    LEA DI, first_line
+[  74]    0387: BE C8 00                              LEA SI, first_count
+[  75]    038A: EB B3                                 JMP read
+[  76]        :                                       
+[  77]    038C: BE B0 01                              sec:    LEA SI, fou_count
+[  78]    038F: 89 0C                                 MOV [SI], CX
+[  79]    0391: 33 C9                                 XOR CX, CX
+[  80]    0393: BF 32 00                              LEA DI, second_line
+[  81]    0396: BE 02 01                              LEA SI, second_count
+[  82]    0399: EB A4                                 JMP read
+[  83]        :                                       
+[  84]    039B: BE B0 01                              thi:    LEA SI, fou_count
+[  85]    039E: 89 4C 01                              MOV [SI+1], CX
+[  86]    03A1: 33 C9                                 XOR CX, CX
+[  87]    03A3: BF 64 00                              LEA DI, third_line
+[  88]    03A6: BE 3C 01                              LEA SI, third_count
+[  89]    03A9: EB 94                                 JMP read
+[  90]        :                                       
+[  91]    03AB: BE B0 01                              fou:    LEA SI, fou_count
+[  92]    03AE: 89 4C 02                              MOV [SI+2], CX
+[  93]    03B1: 33 C9                                 XOR CX, CX
+[  94]    03B3: BF 96 00                              LEA DI, fourth_line
+[  95]    03B6: BE 76 01                              LEA SI, fouth_count
+[  96]    03B9: EB 84                                 JMP read
+[  97]        :                                       
+[  98]        :                                       ;----------------------------------------------------OUTPUT-----------------------------------------
+[  99]        :                                       
+[ 100]    03BB:                                       output:
+[ 101]    03BB: 33 D2                                 XOR DX, DX
+[ 102]    03BD: 33 DB                                 XOR BX, BX
+[ 103]    03BF: 33 C0                                 XOR AX, AX
+[ 104]    03C1: 33 E4                                 XOR SP, SP
+[ 105]    03C3: FE C5                                 INC CH
+[ 106]        :                                       
+[ 107]    03C5: 80 FD 01                              cho2:   CMP CH, 1
+[ 108]    03C8: 74 0F                                 JE  fir2
+[ 109]    03CA: 80 FD 02                              CMP CH, 2
+[ 110]    03CD: 74 19                                 JE  sec2
+[ 111]    03CF: 80 FD 03                              CMP CH, 3
+[ 112]    03D2: 74 24                                 JE  thi2
+[ 113]    03D4: 80 FD 04                              CMP CH, 4
+[ 114]    03D7: 74 2F                                 JE  fou2
+[ 115]        :                                       
+[ 116]        :                                       
+[ 117]        :                                       
+[ 118]    03D9: BE B0 01                              fir2:   LEA SI, fou_count
+[ 119]    03DC: 8A 0C                                 MOV CL, [SI]
+[ 120]    03DE: 8A E1                                 MOV AH, CL
+[ 121]    03E0: BE C8 00                              LEA SI, first_count
+[ 122]    03E3: BF B4 01                              LEA DI, display
+[ 123]    03E6: EB 30                                 JMP order
+[ 124]        :                                       
+[ 125]    03E8: BE B0 01                              sec2:   LEA SI, fou_count
+[ 126]    03EB: 8A 4C 01                              MOV CL, [SI+1]
+[ 127]    03EE: 8A E1                                 MOV AH, CL
+[ 128]    03F0: BE 02 01                              LEA SI, second_count
+[ 129]    03F3: BF B4 01                              LEA DI, display
+[ 130]    03F6: EB 20                                 JMP order
+[ 131]        :                                       
+[ 132]    03F8: BE B0 01                              thi2:   LEA SI, fou_count
+[ 133]    03FB: 8A 4C 02                              MOV CL, [SI+2]
+[ 134]    03FE: 8A E1                                 MOV AH, CL
+[ 135]    0400: BE 3C 01                              LEA SI, third_count
+[ 136]    0403: BF B4 01                              LEA DI, display
+[ 137]    0406: EB 10                                 JMP order
+[ 138]        :                                       
+[ 139]    0408: BE B0 01                              fou2:   LEA SI, fou_count
+[ 140]    040B: 8A 4C 03                              MOV CL, [SI+3]
+[ 141]    040E: 8A E1                                 MOV AH, CL
+[ 142]    0410: BE 76 01                              LEA SI, fouth_count
+[ 143]    0413: BF B4 01                              LEA DI, display
+[ 144]    0416: EB 00                                 JMP order
+[ 145]        :                                       
+[ 146]    0418: 80 F9 00                              order:  CMP CL, 0
+[ 147]    041B: 74 15                                 JE  list
+[ 148]    041D: FE C9                                 DEC CL
+[ 149]    041F: 8A 04                                 MOV AL, [SI]
+[ 150]    0421: 44                                    INC SP
+[ 151]    0422: 46                                    INC SI
+[ 152]    0423: 3A D0                                 CMP DL, AL
+[ 153]    0425: 73 F1                                 JAE order
+[ 154]    0427: 8A D0                                 MOV DL, AL
+[ 155]    0429: 89 25                                 MOV [DI], SP
+[ 156]    042B: FE 0D                                 DEC [DI]
+[ 157]    042D: 88 45 01                              MOV [DI+1], AL
+[ 158]    0430: EB E6                                 JMP order
+[ 159]        :                                       
+[ 160]    0432: 80 EA 30                              list:   SUB DL, 48                 ;change the ASCII
+[ 161]    0435: D0 EA                                 SHR DL, 1
+[ 162]    0437: 80 C2 30                              ADD DL, 48
+[ 163]    043A: 8A CC                                 MOV CL, AH
+[ 164]    043C: BB 02 00                              MOV BX, 2
+[ 165]        :                                       
+[ 166]    043F: 80 F9 00                              list2:  CMP CL, 0
+[ 167]    0442: 74 14                                 JE  displ
+[ 168]    0444: FE C9                                 DEC CL
+[ 169]    0446: 8A 04                                 MOV AL, [SI]
+[ 170]    0448: 4E                                    DEC SI
+[ 171]    0449: 4C                                    DEC SP
+[ 172]    044A: 3A D0                                 CMP DL, AL
+[ 173]    044C: 77 F1                                 JA  list2
+[ 174]    044E: 89 21                                 MOV [DI+BX], SP
+[ 175]    0450: FE 01                                 INC [DI+BX]
+[ 176]    0452: 43                                    INC BX
+[ 177]    0453: 88 01                                 MOV [DI+BX], AL
+[ 178]    0455: 43                                    INC BX
+[ 179]    0456: EB E7                                 JMP list2
+[ 180]        :                                       
+[ 181]    0458: 8A CB                                 displ:  MOV CL, BL
+[ 182]    045A: D0 E9                                 SHR CL, 1
+[ 183]    045C: 33 DB                                 XOR BX, BX
+[ 184]    045E: FE C5                                 INC CH
+[ 185]        :                                       
+[ 186]    0460: 80 F9 00                              disp2:  CMP CL, 0
+[ 187]    0463: 74 1B                                 JE  over
+[ 188]    0465: FE C9                                 DEC CL
+[ 189]    0467: 8A 11                                 MOV DL, [DI+BX]
+[ 190]    0469: 80 C2 41                              ADD DL, GAP
+[ 191]    046C: B4 02                                 MOV AH, 2
+[ 192]    046E: CD 21                                 INT 21H
+[ 193]    0470: B2 2D                                 MOV DL, 45                  ;insert symbol '-'
+[ 194]    0472: CD 21                                 INT 21H
+[ 195]    0474: 43                                    INC BX
+[ 196]    0475: 8A 11                                 MOV DL, [DI+BX]
+[ 197]    0477: 43                                    INC BX
+[ 198]    0478: CD 21                                 INT 21H
+[ 199]    047A: B2 1F                                 MOV DL, 31                  ;insert symbol ' '
+[ 200]    047C: CD 21                                 INT 21H
+[ 201]    047E: EB E0                                 JMP disp2
+[ 202]        :                                       
+[ 203]    0480: 80 FD 04                              over:   CMP CH, 4
+[ 204]    0483: 77 03 E9 3D FF                        JNA cho2
+[ 205]        :                                       
+[ 206]        :                                       
+[ 207]        :                                       
+[ 208]    0488: B8 00 4C CD 21                        .EXIT
+[ 209]        :                                       
+[ 210]        :                                       END
+[ 211]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 8D      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 04      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 2C      -   check sum (l.byte)
+0013: 13      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 33      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 33      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
