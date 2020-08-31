@@ -1,0 +1,16 @@
+.MODEL  small
+
+.STACK
+
+.DATA
+
+.STARTUP
+MOV AX, 0
+
+.EXIT
+
+END
+
+
+
+; [SOURCE]: D:\Desktop\S1-F-EXAM\Computer Architechure\Lab Codes\0\Writing value to register.asm

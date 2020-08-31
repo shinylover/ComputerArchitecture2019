@@ -1,0 +1,15 @@
+< THE SYMBOL TABLE >  05 Sum of an array.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+VETT                     	00000     	2         	VAR       	data      
+RES                      	0001E     	2         	VAR       	data      
+CODE                     	00012     	-5        	SEGMENT   	(ITSELF)  
+STARTUP                  	00000     	-1        	LABEL     	code      
+LAB                      	0000E     	-1        	LABEL     	code      
+===================================================================================================
+[ 2020/1/20  --  17:39:34 ] 
+< END >
+ 

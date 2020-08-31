@@ -1,12 +1,0 @@
-Dependencies for Project 'LPC4072', Target 'Target 1': (DO NOT MODIFY !)
-CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (RTE\Device\ARMCM4\startup_ARMCM4.s)(0x5E290184)(--cpu Cortex-M4 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-I"D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\Device\ARM\ARMCM4\Include"--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "ARMCM4 SETA 1"--list .\listings\startup_armcm4.lst --xref -o .\objects\startup_armcm4.o --depend .\objects\startup_armcm4.d)
-F (RTE\Device\ARMCM4\system_ARMCM4.c)(0x5D25F328)(--c99 --gnu -c --cpu Cortex-M4 -D__EVAL --li -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-I"D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\Device\ARM\ARMCM4\Include"-D__UVISION_VERSION="529" -D_RTE_ -DARMCM4-o .\objects\system_armcm4.o --omf_browse .\objects\system_armcm4.crf --depend .\objects\system_armcm4.d)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\Device\ARM\ARMCM4\Include\ARMCM4.h)(0x5BBDCDEA)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D25F326)
-I (D:\Program Files\Keil_V5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (D:\Program Files\Keil_V5\pack\ARM\CMSIS\5.6.0\Device\ARM\ARMCM4\Include\system_ARMCM4.h)(0x5BBDCDEA)
