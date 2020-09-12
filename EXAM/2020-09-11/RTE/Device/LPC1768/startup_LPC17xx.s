@@ -49,11 +49,7 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
-				AREA matrixDeclaration, DATA, READWRITE
-matrix SPACE 2000
 
-                AREA arrayInitialization, DATA, READONLY
-array DCD 4, 30, 120, 340, 780
 
 ; Vector Table Mapped to Address 0 at Reset
 
@@ -121,84 +117,196 @@ CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
 
+
+				AREA   variableDeclaration, DATA, READWRITE 
+mySpace 		SPACE 128 
+	
+				AREA stringDefinition, DATA, READONLY 
+					
+string1			DCB "computer architectures", 0 
+
+string2 		DCB "accurate search", 0 
+
+				AREA |.text|, CODE, READONLY 
+
                 AREA    |.text|, CODE, READONLY
+
 
 
 ; Reset Handler
 
+Reset_Handler   PROC
+                EXPORT  Reset_Handler             [WEAK]
+				LDR r0, =string1
+				LDR r1, =string2	
+				BL isContained
+				
+				
+				LDR r0, =string1
+				LDR r1, =string2	
+				BL isAnagram
+				
+				LDR r0, =string1
+				LDR r1, =string2	
+				BL longestSubstring
+stop            b   stop				
 
-
-
-
-
-
-
-
-
-
-initializeMatrix proc
+isContained      proc
                  push{r4-r8,r10,r11,lr}
-                 mov r4,r0
-				 mov r5,r1
-				 mov r6,r2
-back
-                 ldr r7,[r5],#4
-				 str r7,[r4],#20
-				 sub r6,#1
-				 cmp r6,#0
-				 bne back
-				 pop{r4-r8,r10,r11,pc}
-                 ENDP
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-computerDifferences proc
-                 push{r4-r8,r10,r11,lr}
-				 mov r4,r0
-				 mov r5,r0
-				 mov r6,r1
-back1
-                 sub r6,#1
-				 cmp r6,#1
-				 beq return
-				 rsb r7,r6,#5
-				 sub r7,#1
-				 mov r11, #4
-				 mul r7, r11
-				 mov r4, r0
-				 mov r5, r0      
-				 mov r10, r0
-				 mov r6, r1
-				 add r4, r7
-				 ldr r8, [r5], #r7
-				 ldr r8, [r5], #20
+                 mov r4, r0
+				 mov r5, r1
 				 
-				 ldr r8, [r10], r7
-				 ldr r8, [r10], #4
-back2
-                 ldr r7,[r4],#20
-				 ldr r8,[r5],#20
-				 cmp r8,#0
-				 beq back1
-				 sub r8,r7
-				 str r8,[r10],#20
-				 b back2
-return
-                 pop{r4-r8,r10,r11,pc}
-				 endp
-getPolynomialValue proc
+checkRule1		ldrb r7, [r5], #1
+				mov  r4, r0           ; move to this place
+				cmp  r7, #0
+				beq  checkRule2
+
+checkRule1_1                          ;move this line forward 3 lines
+                ldrb r6, [r4], #1
+				cmp  r6, #0
+				beq  end0
+                cmp  r6, r7
+				beq  checkRule1
+				b    checkRule1_1
+				
+				
+checkRule2      mov  r4, r0
+                mov  r5, r1
+				
+countS2         ldrb r6, [r5], #1     ;change the address base of S1
+				cmp  r6, #0
+				beq  end1
+                mov  r8, r6
+				mov  r11, #1
+
+countS2_1       ldrb r6, [r5], #1     ;change the address base of S1
+                cmp  r6, #0
+				beq  countS1
+				cmp  r8, r6
+				beq  countS2p
+				b    countS2_1        ;add a labe b
+
+countS2p        add  r11, #1
+                b    countS2_1
+	
+countS1         mov  r10, #0
+loopS1			ldrb r7, [r4], #1
+				cmp  r7, #0
+				beq  checkT
+                cmp  r7, r8
+				bne  loopS1
+				b    countS1p
+
+countS1p         add  r10, #1
+				b    loopS1
+
+checkT          cmp  r10, r11
+                blo  end0
+				b    countS2
+
+end0            mov  r0, #0
+                b    endProg
+
+end1			mov  r0, #1
+                b    endProg
+
+endProg			pop{r4-r8,r10,r11,pc}
+                 ENDP
+
+
+
+isAnagram        proc
                  push{r4-r8,r10,r11,lr}
-				 mov r4,r0
-				 mov r5,r1
-				 mov r6,r2
-				 pop{r4-r8,r10,r11,pc}
-endp
-stop             b stop
-                 endp
+				 
+				 mov  r4, r0
+				 mov  r5, r1
+				 mov  r10, #0
+				 mov  r11, #0
+				 
+pro2CountS1      ldrb r6, [r4], #1
+                 cmp  r6, #0
+				 beq  pro2CountS2
+                 add  r10, #1
+				 b    pro2CountS1
+
+pro2CountS2      ldrb r7, [r5], #1
+                 cmp  r7, #0
+				 beq  pro2Compare
+                 add  r11, #1
+				 b    pro2CountS2
+				 
+                 
+pro2Compare      cmp r10, r11
+                 beq call
+				 b   end20
+
+call             bl  isContained
+                 b   endPro2
+
+end20            mov r0, #0
+                 b   endPro2
+
+endPro2          pop{r4-r8,r10,r11,pc}
+                 ENDP
+
+
+
+
+longestSubstring proc
+                 push{r4-r8,r10,r11,lr}
+				 
+				 
+                 mov  r11, #0
+				 mov  r10, #0
+				 mov  r9, r1
+				 mov  r5, r1
+				 
+pro3CountS2      ldrb r7, [r5], #1
+                 cmp  r7, #0
+				 beq  Pro3
+                 add  r8, #1
+				 b    pro3CountS2
+				 
+
+Pro3             mov  r5, r9
+                 mov  r4, r0
+				 
+cheS2            ldrb r7, [r5], #1
+				 
+                 cmp  r7, #0
+				 beq  compare                        ;change the label name 
+				
+				 
+cheS1		     ldrb r6, [r4], #1
+                 cmp  r6, #0
+				 beq  compare
+                 cmp  r7, r6
+                 bne  cheS1	
+                 b    countT
+
+countT           add  r11, #1
+                 b    cheS2
+
+compare          sub  r8, #1                        ;
+				 cmp  r8, #0                        ;
+				 beq  endNum                        ;
+				 cmp  r10, r11
+                 blo  change
+				 add  r9, #1            ;change number 8 to 1
+				 mov  r11, #0           ;
+				 B    Pro3
+				 
+
+change           mov  r10, r11
+                 mov  r11, #0
+				 add  r9, #1            ;change number 8 to 1
+				 b    Pro3
+
+endNum           mov  r0, r10 
+
+                 pop{r4-r8,r10,r11,pc}
+                 ENDP
+
 
 ; Dummy Exception Handlers (infinite loops which can be modified)
 
