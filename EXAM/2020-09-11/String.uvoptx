@@ -142,9 +142,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>291</LineNumber>
+          <LineNumber>151</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>474</Address>
+          <Address>228</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -153,30 +153,30 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>RTE\Device\LPC1768\startup_LPC17xx.s</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\String\RTE/Device/LPC1768/startup_LPC17xx.s\291</Expression>
+          <Expression>\\String\RTE/Device/LPC1768/startup_LPC17xx.s\151</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>290</LineNumber>
+          <LineNumber>148</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
+          <Address>220</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
+          <BreakIfRCount>1</BreakIfRCount>
           <Filename>RTE\Device\LPC1768\startup_LPC17xx.s</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\String\RTE/Device/LPC1768/startup_LPC17xx.s\148</Expression>
         </Bp>
       </Breakpoint>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>3</SubType>
-          <ItemText>0x0000023C</ItemText>
+          <ItemText>0x00000254</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -184,7 +184,7 @@
         <Mm>
           <WinNumber>2</WinNumber>
           <SubType>3</SubType>
-          <ItemText>0x00000253</ItemText>
+          <ItemText>0x0000026b</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow2>

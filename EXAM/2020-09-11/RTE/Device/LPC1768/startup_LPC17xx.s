@@ -123,9 +123,9 @@ mySpace 		SPACE 128
 	
 				AREA stringDefinition, DATA, READONLY 
 					
-string1			DCB "computer architectures", 0 
+string1			DCB "abcdef", 0 
 
-string2 		DCB "accurate search", 0 
+string2 		DCB "bdaf", 0 
 
 				AREA |.text|, CODE, READONLY 
 
@@ -139,8 +139,7 @@ Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 				LDR r0, =string1
 				LDR r1, =string2	
-				BL isContained
-				
+				BL isContained	
 				
 				LDR r0, =string1
 				LDR r1, =string2	
@@ -151,10 +150,13 @@ Reset_Handler   PROC
 				BL longestSubstring
 stop            b   stop				
 
+
+
 isContained      proc
-                 push{r4-r8,r10,r11,lr}
+                 push{r4-r11,lr}      ;   change r4-r8, r10, r11 to r4-r11
                  mov r4, r0
 				 mov r5, r1
+				 mov r9, #0           ;
 				 
 checkRule1		ldrb r7, [r5], #1
 				mov  r4, r0           ; move to this place
@@ -172,7 +174,7 @@ checkRule1_1                          ;move this line forward 3 lines
 				
 checkRule2      mov  r4, r0
                 mov  r5, r1
-				
+
 countS2         ldrb r6, [r5], #1     ;change the address base of S1
 				cmp  r6, #0
 				beq  end1
@@ -202,15 +204,22 @@ countS1p         add  r10, #1
 
 checkT          cmp  r10, r11
                 blo  end0
-				b    countS2
+				mov  r10, #0
+				mov  r11, #0
+
+				add  r9, #1            ;
+				mov  r5, r1            ;
+				add  r5, r9            ;
+				mov  r4, r0            ;
+				b    countS2          
 
 end0            mov  r0, #0
                 b    endProg
 
 end1			mov  r0, #1
                 b    endProg
-
-endProg			pop{r4-r8,r10,r11,pc}
+  
+endProg			pop{r4-r11, pc}        ;   change r4-r8, r10, r11 to r4-r11
                  ENDP
 
 
